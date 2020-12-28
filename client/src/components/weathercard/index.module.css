@@ -1,0 +1,161 @@
+/* for max-device-width: 700px */
+.weathercard {
+  height: 100%;
+  border-radius: 10px;
+  font-family: 'Quicksand';
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas:
+    'search '
+    'summary'
+    'detail'
+    'recent';
+}
+
+.summary {
+  grid-area: summary;
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'temperature temperature'
+    'place place'
+    'date date'
+    'icon maindesc';
+  justify-content: flex-start;
+  align-content: center;
+}
+
+.temperature {
+  grid-area: temperature;
+  font-size: 2.5rem;
+  font-weight: 900;
+  padding: 0.2rem 0.5rem;
+}
+.place {
+  grid-area: place;
+  font-size: 2rem;
+  padding: 0.2rem 0.5rem;
+}
+.date {
+  grid-area: date;
+  font-size: 1.5rem;
+  padding: 0.2rem 0.5rem;
+}
+.icon {
+  grid-area: icon;
+  font-size: 1.5rem;
+  padding: 0.2rem 0.5rem;
+}
+.maindesc {
+  grid-area: maindesc;
+  font-size: 1rem;
+  align-self: center;
+}
+.search {
+  grid-area: search;
+}
+.detail {
+  grid-area: detail;
+  padding: 0.5rem 0.5rem;
+  justify-content: space-evenly;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.heading {
+  font-weight: bold;
+}
+.tile {
+  justify-content: space-between;
+}
+.recent {
+  grid-area: recent;
+  padding: 0.5rem 0.5rem;
+  justify-content: space-evenly;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@supports (backdrop-filter: blur(25px)) {
+  .detail {
+    background-color: linear-gradient(2deg, rgb(0, 0, 0) 50%, 90%, rgb(255, 165, 0) 100%);
+    backdrop-filter: blur(25px) contrast(0.8);
+  }
+  .search {
+    background-color: linear-gradient(2deg, rgb(0, 0, 0) 50%, 90%, rgb(255, 165, 0) 100%);
+    backdrop-filter: blur(25px) contrast(0.8);
+  }
+  .recent {
+    background-color: linear-gradient(2deg, rgb(0, 0, 0) 50%, 90%, rgb(255, 165, 0) 100%);
+    backdrop-filter: blur(25px) contrast(0.8);
+  }
+}
+
+@media screen and (min-device-width: 700px) {
+  .temperature {
+    font-size: 5rem;
+  }
+  .place {
+    font-size: 3.5rem;
+  }
+  .date {
+    font-size: 2.6rem;
+  }
+  .icon {
+    font-size: 2.6rem;
+  }
+  .maindesc {
+    font-size: 1.8rem;
+  }
+  .detail {
+    font-size: 1.2rem;
+  }
+  .recent {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .weathercard {
+    /* grid-template-columns: 55% 45%; */
+    grid-template-columns: 60% 40%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      '. search'
+      '. detail'
+      'summary recent';
+  }
+  .summary {
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'temperature place icon'
+      'temperature date maindesc';
+  }
+  .temperature {
+    font-size: 7rem;
+    padding: 0rem 0.5rem;
+  }
+  .place {
+    font-size: 3.1rem;
+    padding: 0rem 0.5rem;
+    align-self: flex-end;
+  }
+  .date {
+    font-size: 1.5rem;
+    padding: 0rem 0.5rem;
+  }
+  .icon {
+    font-size: 2.2rem;
+    padding: 0rem 0.5rem;
+    align-self: flex-end;
+  }
+  .maindesc {
+    font-size: 1rem;
+    padding: 0rem 0.5rem;
+    align-self: normal;
+  }
+}
