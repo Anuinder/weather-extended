@@ -55,6 +55,7 @@
 }
 .search {
   grid-area: search;
+  padding: 0.1rem 0.5rem;
 }
 .detail {
   grid-area: detail;

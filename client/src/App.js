@@ -11,7 +11,12 @@ class App extends React.Component {
     this.props.onDetailCardOpen();
     // console.log(this.props)
   };
-
+  componentDidMount() {
+    console.log('compoenent did mount');
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords.latitude, ' ', position.coords.longitude);
+    });
+  }
   render() {
     return (
       <div className={classes.container}>

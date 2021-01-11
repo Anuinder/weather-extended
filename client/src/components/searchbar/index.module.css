@@ -1,7 +1,7 @@
 .searchBar {
   backdrop-filter: blur(15px) opacity(1.9);
 
-  font-size: 1rem;
+  /* font-size: 1rem; */
   display: flex;
   flex-direction: row;
 
@@ -12,9 +12,9 @@
   background: transparent;
   border: none;
   color: white;
-  /* flex: 80%; */
+  flex: 80%;
   flex: auto;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
 
   font-family: 'Quicksand';
 }
@@ -22,14 +22,20 @@
   outline: none;
 }
 .searchButton {
-  font-size: 1rem;
-  background-color: rgb(182, 107, 8);
-  flex: content;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: 0px solid transparent;
+  color: white;
+  /* background-color: rgb(182, 107, 8); */
+  /* flex: content; */
   /* flex: 20%; */
 }
 
+.searchButton:hover {
+  color: yellow;
+}
 @media screen and (min-width: 700px) {
   .inputBar {
-    font-size: 1.8rem;
+    /* font-size: 1.8rem; */
   }
 }

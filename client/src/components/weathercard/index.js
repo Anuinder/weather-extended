@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { onDetailCardOpen } from '../../redux/actions';
+import { onDetailCardOpen, fetchWeatherData } from '../../redux/actions';
 import { solidCloudRain } from '../../assets/icons';
 import SearchBar from '../searchbar';
 import Icons from '../icons.js';
@@ -38,6 +38,9 @@ class WeatherCard extends React.Component {
     // console.log(this.props)
   };
   render() {
+    const { id, name, email, fetchWeatherData } = this.props;
+    console.log(id, ' ', name, ' ', fetchWeatherData);
+
     return (
       <div className={classes.weathercard}>
         <section className={classes.search}>
@@ -74,4 +77,4 @@ const mapStateToProps = (state) => ({
   detailedCard: state.cards.detailedCard,
 });
 
-export default connect(mapStateToProps, { onDetailCardOpen })(WeatherCard);
+export default connect(mapStateToProps, { onDetailCardOpen, fetchWeatherData })(WeatherCard);

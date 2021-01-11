@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-// import otherReducer from './otherSlice';
 import cardReducer from './cardSlice';
+import weatherReducer from './weatherSlice';
 
 const rootReducer = combineReducers({
   cards: cardReducer,
-  // others: otherReducer,
+  weather: weatherReducer,
 });
 
 export default rootReducer;
