@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {
   DETAIL_CARD_CLOSE,
   DETAIL_CARD_OPEN,
@@ -7,27 +5,16 @@ import {
   WEATHER_API_REQUEST_SUCCESS,
   WEATHER_API_REQUEST_FAILURE,
 } from './actionTypes';
-
-// helper functions
-const fetchWeatherDataApi = async (url1) => {
-  const url = 'https://jsonplaceholder.typicode.com/users/' + url1;
-  const response = await axios.get(url);
-  const { id, name, username, email } = response.data;
-  return {
-    id,
-    name,
-    username,
-    email,
-  };
-};
+import { fetchPlaceCoordinates, fetchReverseGeocode, fetchWeatherDataApi } from '../utils/apiRequests.js';
 
 // action creators
 const onDetailCardClose = () => ({
   type: DETAIL_CARD_CLOSE,
 });
 
-const onDetailCardOpen = () => ({
+const onDetailCardOpen = (id) => ({
   type: DETAIL_CARD_OPEN,
+  payload: id,
 });
 
 const onWeatherApiRequest = (id) => ({
@@ -35,35 +22,43 @@ const onWeatherApiRequest = (id) => ({
   payload: id,
 });
 
-const onWeatherApiRequestSuccess = (id, response, selectedOption = {}) => ({
+const onWeatherApiRequestSuccess = (id, selectedOption, weather) => ({
   type: WEATHER_API_REQUEST_SUCCESS,
   payload: {
     id,
-    ...response,
     ...selectedOption,
+    ...weather,
   },
 });
 
-const onWeatherApiRequestFailure = (id, err, selectedOption) => ({
+const onWeatherApiRequestFailure = (id, err) => ({
   type: WEATHER_API_REQUEST_FAILURE,
   payload: {
     id,
-    selectedOption,
-    errorMsg: err.Message || 'There was problem in fetching data!',
+    errorMsg: err.message || 'An error occured while fetching the data',
   },
 });
 
-// thunk - action creators , returns function
-const fetchWeatherData = (selectedOption) => async (dispatch) => {
-  // request has been send
+// thunk function
+const fetchWeatherData = (selectedOption, position) => async (dispatch) => {
+  // when reverse geocode needed
+  if (selectedOption === null) {
+    const { id, city, state, country } = await fetchReverseGeocode(position);
+    selectedOption = { id: id, city: city, state: state, country: country };
+  }
+  // when geocode needed
+  if (position === null) {
+    const { lat, lng } = await fetchPlaceCoordinates(selectedOption.id);
+    position = { lat: lat, lng: lng };
+  }
+
   dispatch(onWeatherApiRequest(selectedOption.id));
   try {
-    const response = await fetchWeatherDataApi(selectedOption.id);
-    dispatch(onWeatherApiRequestSuccess(selectedOption.id, response, selectedOption));
+    const weather = await fetchWeatherDataApi(position);
+    dispatch(onWeatherApiRequestSuccess(selectedOption.id, selectedOption, weather));
   } catch (err) {
-    dispatch(onWeatherApiRequestFailure(selectedOption.id, err, selectedOption));
+    dispatch(onWeatherApiRequestFailure(selectedOption.id, err));
   }
-  console.log('done!!');
 };
 
 export { onDetailCardClose, onDetailCardOpen, fetchWeatherData };

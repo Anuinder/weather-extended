@@ -1,172 +1,128 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { onDetailCardClose } from '../../redux/actions';
 
-import { regularClose, solidLocation, solidCloudRain, solidWind, solidSun } from '../../assets/icons';
-
-import Icons from '../icons.js';
-import Place from '../place.js';
-import Date from '../date.js';
-import Temperature from '../temperature.js';
-import DetailTile from '../detailtile/index.js';
+import {
+  CloseIcon,
+  LocationIcon,
+  CloudIcon,
+  VisibilityIcon,
+  WindIcon,
+  PressureIcon,
+  HumidityIcon,
+  SunriseIcon,
+  SunsetIcon,
+  UviIcon,
+  getOpenWeatherIcons,
+} from '../../assets/icons';
+import { getDay, getDate, openWeatherUnitsList, getTime24Hour, getDayThisWeek } from '../../utils/dataModifier.js';
+import IconCustom from '../icons.js';
+import WeatherParameters from '../parameters.js';
+import DetailTile from '../detailtile.js';
 import HourlyTile from '../hourlytile';
-
+import Temperature from '../temperature.js';
 import classes from './index.module.css';
 
 class DetailedCard extends React.Component {
-  state = {
-    place: 'Weather in United Kingdom',
-    date: "06:09-Monday,9 Sep'19",
-    sunrise: '05:17',
-    sunset: '20:17',
-    temperature: '+23',
-    add: {
-      clouds: 90,
-      visibility: 6437,
-      wind_speed: 3.6,
-      wind_deg: 320,
-      pressure: 1017,
-      humidity: 96,
-      uvi: 0,
-    },
-
-    maindesc: 'thunderstorm with light drizzle',
-  };
   handleDetailCardClose = () => {
     this.props.onDetailCardClose();
   };
 
   render() {
+    const { city, state, country, current, hourly, daily } = this.props.weatherData;
+
+    // current weather data
+    const currentDetails = [
+      { icon: CloudIcon, data: current.clouds + openWeatherUnitsList.CLOUDY },
+      { icon: VisibilityIcon, data: current.visibility + openWeatherUnitsList.VISIBILITY },
+      { icon: WindIcon, data: current.wind_speed + openWeatherUnitsList.WIND_SPEED },
+      { icon: PressureIcon, data: current.pressure + openWeatherUnitsList.PRESSURE },
+      { icon: HumidityIcon, data: current.humidity + openWeatherUnitsList.HUMIDITY },
+      { icon: UviIcon, data: current.uvi + openWeatherUnitsList.UV_INDEX },
+    ];
+
+    const date = `${getDay(current.dt)},${getDate(current.dt)}`;
+    const temperature = current.temp;
+
     return (
       <div className={classes.detailedCard}>
         <section className={classes.header}>
           <div>
-            <Place place={this.state.place} styles={classes.place} />
-            <Icons icon={solidLocation} styles={classes.loc} />
+            <WeatherParameters parameter={city} styles={classes.place} />
+            <FontAwesomeIcon icon={LocationIcon} className={classes.loc} />
           </div>
           <div onClick={this.handleDetailCardClose}>
-            <Icons icon={regularClose} styles={classes.close} />
+            <FontAwesomeIcon icon={CloseIcon} className={classes.close} />
           </div>
         </section>
+
+        <section className={classes.country}>
+          ( <WeatherParameters parameter={state} styles={classes.country} />,
+          <WeatherParameters parameter={country} styles={classes.country} />)
+        </section>
+
         <section className={classes.date}>
-          <Date date={this.state.date} />
+          <WeatherParameters parameter={date} />
         </section>
+
         <section className={classes.temperature}>
-          <Icons icon={solidCloudRain} />
-          <Temperature temperature={this.state.temperature} />
-          <p className={classes.maindesc}>{this.state.maindesc}</p>
+          <IconCustom icon={getOpenWeatherIcons(current.weather[0].icon)} styles={classes.loc} />
+          <Temperature parameter={temperature} />
+          <WeatherParameters parameter={current.weather[0].description} styles={classes.maindesc} />
         </section>
+
         <section className={classes.additional}>
-          <DetailTile data={this.state.add.clouds} icon={solidCloudRain} styles={classes.addtile} />
-          <DetailTile data={this.state.add.visibility} icon={solidCloudRain} styles={classes.addtile} />
-          <DetailTile data={this.state.add.wind_speed} icon={solidWind} styles={classes.addtile} />
-          <DetailTile data={this.state.add.pressure} icon={solidCloudRain} styles={classes.addtile} />
-          <DetailTile data={this.state.add.humidity} icon={solidCloudRain} styles={classes.addtile} />
-          <DetailTile data={this.state.add.uvi} icon={solidCloudRain} styles={classes.addtile} />
+          {currentDetails.map((data, index) => (
+            <DetailTile key={index} icon={data.icon} data={data.data} styles={classes.addtile}></DetailTile>
+          ))}
         </section>
+
         <section className={classes.sunrise}>
-          <Icons icon={solidSun} styles={classes.sunicon} />
-          {this.state.sunrise}
+          <IconCustom icon={SunriseIcon} styles={classes.sunicon} />
+          {getTime24Hour(current.sunrise)}
         </section>
+
         <section className={classes.sunset}>
-          <Icons icon={solidSun} styles={classes.sunicon} />
-          {this.state.sunset}
+          <IconCustom icon={SunsetIcon} styles={classes.sunicon} />
+          {getTime24Hour(current.sunset)}
         </section>
 
         <section className={classes.hourly}>
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'3pm'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
+          {hourly.map((data, index) => (
+            <HourlyTile
+              key={index}
+              icon={data.weather[0].icon}
+              desc={data.weather[0].main}
+              temperature={data.temp}
+              time={getTime24Hour(data.dt)}
+              rain={data.clouds}
+            />
+          ))}
         </section>
 
         <section className={classes.daily}>
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'Today'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'Today'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'Today'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'Today'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
-          <HourlyTile
-            icon={solidCloudRain}
-            temperature={this.state.temperature}
-            time={'Today'}
-            uvi={this.state.add.uvi}
-            rain={this.state.add.clouds}
-          />
+          {daily.map((data, index) => (
+            <HourlyTile
+              key={index}
+              icon={data.weather[0].icon}
+              desc={data.weather[0].main}
+              temperature={data.temp.day}
+              time={getDayThisWeek(data.dt)}
+              rain={data.clouds}
+            />
+          ))}
         </section>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  detailedCard: state.cards.detailedCard,
+
+  weatherData: state.weather[state.cards.id],
+});
+
 //connect DetailedCard component to store
-export default connect(null, { onDetailCardClose })(DetailedCard);
+export default connect(mapStateToProps, { onDetailCardClose })(DetailedCard);

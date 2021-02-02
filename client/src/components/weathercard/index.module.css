@@ -11,6 +11,10 @@
     'summary'
     'detail'
     'recent';
+  /* scrollbar */
+  overflow-y: scroll;
+  margin-right: -50px;
+  padding-right: 33px;
 }
 
 .summary {
@@ -70,6 +74,10 @@
 }
 .tile {
   justify-content: space-between;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 .recent {
   grid-area: recent;

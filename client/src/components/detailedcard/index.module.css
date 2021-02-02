@@ -9,6 +9,7 @@
   grid-template-columns: auto auto;
   grid-template-areas:
     'header header'
+    'country country'
     'date date'
     'temperature temperature'
     'additional additional'
@@ -18,7 +19,8 @@
   /* scrollbar */
   overflow-y: scroll;
   margin-right: -50px;
-  padding-right: 50px;
+  /* padding-right: 50px; */
+  padding-right: 33px;
 }
 .detailedCard > * {
   padding: 0.2rem 0.2rem;
@@ -32,6 +34,9 @@
 }
 .place {
   font-size: 1.5rem;
+}
+.country {
+  font-size: 1rem;
 }
 .loc {
   font-size: 1rem;
@@ -67,6 +72,11 @@
 }
 .addtile {
   justify-content: space-between;
+  justify-content: space-between;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 .sunrise {
   grid-area: sunrise;

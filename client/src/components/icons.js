@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '../assets/icons';
+const IconCustom = (props) => <img src={props.icon} className={props.style} />;
 
-const Icon = (props) => <FontAwesomeIcon icon={props.icon} className={props.styles} />;
-
-export default Icon;
+export default IconCustom;
