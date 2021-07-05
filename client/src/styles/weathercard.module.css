@@ -59,11 +59,11 @@
 }
 .search {
   grid-area: search;
-  padding: 0.1rem 0.5rem;
+  /* padding: 0.1rem 0.5rem; */
 }
 .detail {
   grid-area: detail;
-  padding: 0.5rem 0.5rem;
+  /* padding: 0.5rem 0.5rem; */
   justify-content: space-evenly;
   font-size: 1rem;
   display: flex;
@@ -81,7 +81,7 @@
 }
 .recent {
   grid-area: recent;
-  padding: 0.5rem 0.5rem;
+
   justify-content: space-evenly;
   font-size: 1rem;
   display: flex;
@@ -143,28 +143,38 @@
     grid-template-areas:
       'temperature place icon'
       'temperature date maindesc';
+    justify-self: center;
+  }
+  .recent {
+    padding: 0rem 1rem;
+  }
+  .detail {
+    padding: 0rem 1rem;
+  }
+  .search {
+    padding: 0rem 1rem;
   }
   .temperature {
-    font-size: 7rem;
-    padding: 0rem 0.5rem;
+    font-size: 5.4rem;
+    padding: 0rem 1rem;
   }
   .place {
-    font-size: 3.1rem;
-    padding: 0rem 0.5rem;
+    font-size: 3rem;
+    padding: 0rem 1rem;
     align-self: flex-end;
   }
   .date {
-    font-size: 1.5rem;
-    padding: 0rem 0.5rem;
+    font-size: 1.3rem;
+    padding: 0rem 1rem;
   }
   .icon {
     font-size: 2.2rem;
-    padding: 0rem 0.5rem;
+    padding: 0rem 1rem;
     align-self: flex-end;
   }
   .maindesc {
-    font-size: 1rem;
-    padding: 0rem 0.5rem;
+    font-size: 1.3rem;
+    padding: 0rem 1rem;
     align-self: normal;
   }
 }

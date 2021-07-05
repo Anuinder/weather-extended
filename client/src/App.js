@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchWeatherData } from './redux/actions';
-import WeatherCards from './components/weathercard';
-import DetailedCards from './components/detailedcard';
+import WeatherCardContainer from './containers/weathercard.js';
+import DetailedCardContainer from './containers/detailedcard.js';
 
-import classes from './App.module.css';
+import classes from './styles/App.module.css';
 class App extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -18,7 +18,7 @@ class App extends React.Component {
       <div className={classes.container}>
         <div className={classes.weatherScreen}>
           <div className={classes.weatherWrapper}>
-            {this.props.detailedCard === false ? <WeatherCards /> : <DetailedCards />}
+            {this.props.detailedCard === false ? <WeatherCardContainer /> : <DetailedCardContainer />}
           </div>
         </div>
       </div>

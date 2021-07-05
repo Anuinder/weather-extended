@@ -4,23 +4,23 @@ import { faTimesCircle as CloseIcon } from '@fortawesome/free-regular-svg-icons'
 import { faMapMarkerAlt as LocationIcon } from '@fortawesome/free-solid-svg-icons';
 
 // weather Icons
-import CloudIcon from './icons/pressure.svg';
+import CloudIcon from './icons/clouds.svg';
 import HumidityIcon from './icons/humidity1.svg';
 import PressureIcon from './icons/pressure.svg';
 import SunriseIcon from './icons/sunrise.svg';
 import SunsetIcon from './icons/sunset.svg';
-import UviIcon from './icons/pressure.svg';
+import UviIcon from './icons/uvi.svg';
 import VisibilityIcon from './icons/visible.svg';
-import WindIcon from './icons/wind.svg';
+import WindIcon from './icons/wind.png';
 
 // icon based on openweather api codes:https://openweathermap.org/weather-conditions#Icon-list
-import ClearSky from './icons/01n@2x.png';
-import FewClouds from './icons/02n@2x.png';
-import ScatteredClouds from './icons/03n@2x.png';
-import BrokenClouds from './icons/04n@2x.png';
-import ShowerRain from './icons/09n@2x.png';
-import Rain from './icons/10n@2x.png';
-import Thunderstorm from './icons/11n@2x.png';
+import ClearSky from './icons/clearsky.png';
+import FewClouds from './icons/fewclouds.png';
+import ScatteredClouds from './icons/clouds.svg';
+import BrokenClouds from './icons/brokenclouds.svg';
+import ShowerRain from './icons/showerrain.png';
+import Rain from './icons/rain.png';
+import Thunderstorm from './icons/thunder.png';
 import Snow from './icons/13n@2x.png';
 import Mist from './icons/50n@2x.png';
 

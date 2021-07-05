@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-import Icons from '../icons.js';
-import { solidSearch } from '../../assets/icons.js';
-import { fetchWeatherData } from '../../redux/actions.js';
-import { fetchPlaceSuggestionsApi } from '../../utils/apiRequests.js';
-import classes from './index.module.css';
+import { fetchWeatherData } from '../redux/actions.js';
+import { fetchPlaceSuggestionsApi } from '../utils/apiRequests.js';
+import classes from '../styles/searchbar.module.css';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -40,8 +38,6 @@ class SearchBar extends React.Component {
       return;
     }
     this.props.fetchWeatherData(selectedOption, null);
-
-    // this.setState({ selectedvalue: value });
   };
 
   render() {
@@ -60,9 +56,6 @@ class SearchBar extends React.Component {
             )}
           />
         </span>
-        {/* <button type='button' className={classes.searchButton} onClick={this.handleSearchClick}>
-          <Icons icon={solidSearch} />
-        </button> */}
       </section>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { onDetailCardClose } from '../../redux/actions';
+import { onDetailCardClose } from '../redux/actions.js';
 
 import {
   CloseIcon,
@@ -15,16 +15,15 @@ import {
   SunsetIcon,
   UviIcon,
   getOpenWeatherIcons,
-} from '../../assets/icons';
-import { getDay, getDate, openWeatherUnitsList, getTime24Hour, getDayThisWeek } from '../../utils/dataModifier.js';
-import IconCustom from '../icons.js';
-import WeatherParameters from '../parameters.js';
-import DetailTile from '../detailtile.js';
-import HourlyTile from '../hourlytile';
-import Temperature from '../temperature.js';
-import classes from './index.module.css';
+} from '../assets/icons.js';
+import { getDay, getDate, getDayThisWeek, openWeatherUnitsList, getTime24Hour } from '../utils/dataModifier.js';
+import IconCustom from '../components/common/icons.js';
+import DetailTile from '../components/detailtile.js';
+import Temperature from '../components/temperature.js';
+import HourlyTile from '../components/hourlytile.js';
+import classes from '../styles/detailedcard.module.css';
 
-class DetailedCard extends React.Component {
+class DetailedCardContainer extends React.Component {
   handleDetailCardClose = () => {
     this.props.onDetailCardClose();
   };
@@ -49,7 +48,7 @@ class DetailedCard extends React.Component {
       <div className={classes.detailedCard}>
         <section className={classes.header}>
           <div>
-            <WeatherParameters parameter={city} styles={classes.place} />
+            <span className={classes.place}>{city}</span>
             <FontAwesomeIcon icon={LocationIcon} className={classes.loc} />
           </div>
           <div onClick={this.handleDetailCardClose}>
@@ -58,18 +57,17 @@ class DetailedCard extends React.Component {
         </section>
 
         <section className={classes.country}>
-          ( <WeatherParameters parameter={state} styles={classes.country} />,
-          <WeatherParameters parameter={country} styles={classes.country} />)
+          ( <span className={classes.country}> {state}</span>,<span className={classes.country}>{state}</span>)
         </section>
 
         <section className={classes.date}>
-          <WeatherParameters parameter={date} />
+          <span> {date}</span>
         </section>
 
         <section className={classes.temperature}>
           <IconCustom icon={getOpenWeatherIcons(current.weather[0].icon)} styles={classes.loc} />
           <Temperature parameter={temperature} />
-          <WeatherParameters parameter={current.weather[0].description} styles={classes.maindesc} />
+          <span className={classes.maindesc}>{current.weather[0].description}</span>
         </section>
 
         <section className={classes.additional}>
@@ -92,11 +90,15 @@ class DetailedCard extends React.Component {
           {hourly.map((data, index) => (
             <HourlyTile
               key={index}
-              icon={data.weather[0].icon}
+              icon={getOpenWeatherIcons(data.weather[0].icon)}
               desc={data.weather[0].main}
-              temperature={data.temp}
+              temperature={data.temp.toFixed(0)}
               time={getTime24Hour(data.dt)}
               rain={data.clouds}
+              styles={{
+                tile: classes.tile,
+                suffix: classes.suffix,
+              }}
             />
           ))}
         </section>
@@ -105,11 +107,15 @@ class DetailedCard extends React.Component {
           {daily.map((data, index) => (
             <HourlyTile
               key={index}
-              icon={data.weather[0].icon}
+              icon={getOpenWeatherIcons(data.weather[0].icon)}
               desc={data.weather[0].main}
-              temperature={data.temp.day}
+              temperature={data.temp.day.toFixed(0)}
               time={getDayThisWeek(data.dt)}
               rain={data.clouds}
+              styles={{
+                tile: classes.tile,
+                suffix: classes.suffix,
+              }}
             />
           ))}
         </section>
@@ -120,9 +126,8 @@ class DetailedCard extends React.Component {
 
 const mapStateToProps = (state) => ({
   detailedCard: state.cards.detailedCard,
-
   weatherData: state.weather[state.cards.id],
 });
 
 //connect DetailedCard component to store
-export default connect(mapStateToProps, { onDetailCardClose })(DetailedCard);
+export default connect(mapStateToProps, { onDetailCardClose })(DetailedCardContainer);
