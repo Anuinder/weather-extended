@@ -3,11 +3,24 @@ import debounce from 'lodash.debounce';
 import { connect } from 'react-redux';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { withStyles } from '@material-ui/core/styles';
 
 import { fetchWeatherData } from '../redux/actions.js';
 import { fetchPlaceSuggestionsApi } from '../utils/apiRequests.js';
 import classes from '../styles/searchbar.module.css';
+import { SearchIcon } from '../assets/icons.js';
 
+const useStyles = (theme) => ({
+  inputRoot: {
+    ['@media screen and (min-width: 1200px)']: { fontSize: '2rem' },
+    fontFamily: 'Cookie',
+    color: 'wheat',
+  },
+  clearIndicator: {
+    color: 'wheat',
+  },
+});
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -42,23 +55,27 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <section className={classes.searchBar}>
+      <>
         <span className={classes.inputBar}>
           <Autocomplete
             id='combo-box-demo'
             options={this.state.options}
             getOptionLabel={(option) => option.city + ',' + option.state + ',' + option.country}
-            style={{ width: 300 }}
             onChange={this.handleChange}
             filterOptions={(options, state) => options}
             renderInput={(params) => (
               <TextField {...params} placeholder='Search for Weather here' onChange={this.handleDebouncedTextChange} />
             )}
+            fullWidth
+            autoHighlight
           />
         </span>
-      </section>
+        <span className={classes.searchButton}>
+          <FontAwesomeIcon icon={SearchIcon} className={classes.search} />
+        </span>
+      </>
     );
   }
 }
 
-export default connect(null, { fetchWeatherData })(SearchBar);
+export default withStyles(useStyles)(connect(null, { fetchWeatherData })(SearchBar));

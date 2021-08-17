@@ -21,8 +21,8 @@ import BrokenClouds from './icons/brokenclouds.svg';
 import ShowerRain from './icons/showerrain.png';
 import Rain from './icons/rain.png';
 import Thunderstorm from './icons/thunder.png';
-import Snow from './icons/13n@2x.png';
-import Mist from './icons/50n@2x.png';
+import Snow from './icons/snow.png';
+import Mist from './icons/mist.png';
 
 const mapCodeToIcon = {
   '01n': ClearSky,

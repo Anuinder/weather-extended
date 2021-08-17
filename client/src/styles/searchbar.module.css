@@ -1,41 +1,59 @@
-.searchBar {
-  backdrop-filter: blur(15px) opacity(1.9);
+/* .searchBar {
+  backdrop-filter: blur(15px) opacity(1.9); */
 
-  /* font-size: 1rem; */
-  display: flex;
+/* font-size: 1rem; */
+/* display: flex;
   flex-direction: row;
-
-  justify-content: flex-end;
-  font-family: 'Quicksand';
-}
+  flex-wrap: nowrap;
+  align-items: center; */
+/* justify-content: flex-end; */
+/* font-family: 'Quicksand' !important;
+} */
 .inputBar {
-  background: transparent;
+  /* background: transparent;
   border: none;
-  color: white;
-  flex: 80%;
-  flex: auto;
+  color: white; */
+  /* flex: 80%;
+  flex: auto; */
   /* font-size: 1.2rem; */
 
-  font-family: 'Quicksand';
+  /* font-family: 'Quicksand'; */
 }
-.inputBar:focus {
+/* .inputBar:focus {
   outline: none;
-}
+} */
 .searchButton {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem;
   background-color: transparent;
   border: 0px solid transparent;
-  color: white;
+  color: white; */
   /* background-color: rgb(182, 107, 8); */
   /* flex: content; */
   /* flex: 20%; */
 }
 
 .searchButton:hover {
-  color: yellow;
+  /* color: yellow; */
 }
+
+.search {
+  background-color: rgb(182, 107, 8);
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+
 @media screen and (min-width: 700px) {
   .inputBar {
     /* font-size: 1.8rem; */
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .inputBar {
+    width: 90%;
+  }
+  .searchButton {
+    font-size: 5 rem;
+    width: 15%;
   }
 }
