@@ -1,0 +1,21 @@
+.search {
+  /* background-color: rgb(182, 107, 8); */
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+
+@media screen and (min-width: 700px) {
+  .inputBar {
+    /* font-size: 1.8rem; */
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .inputBar {
+    width: 90%;
+  }
+  .searchButton {
+    font-size: 5 rem;
+    width: 5%;
+  }
+}

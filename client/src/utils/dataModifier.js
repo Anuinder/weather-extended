@@ -1,34 +1,33 @@
 import moment from 'moment';
 
-import {
-  TEMPERATURE,
-  PRESSURE,
-  HUMIDITY,
-  CLOUDY,
-  VISIBILITY,
-  WIND_SPEED,
-  UV_INDEX,
-  RAIN,
-  SNOW,
-  PRECP_PERC,
-} from './weatherparameter.js';
+// weather parameters used in Application
+export const TEMPERATURE = 'Temperature';
+export const PRESSURE = 'Pressure';
+export const HUMIDITY = 'Humidity';
+export const CLOUDY = 'Cloudy';
+export const VISIBILITY = 'Visibility';
+export const WIND_SPEED = 'Wind';
+export const UV_INDEX = 'UVI';
+export const RAIN = 'Rain';
+export const SNOW = 'Snow';
+export const PRECP_PERC = 'Precipitation';
 
 // extract time
-const getDate = (time) => moment.unix(time).format("D MMMM'YY"); //28 January'20
-const getDateTime = (time) => moment.unix(time).format("kk-dd,D MM'YY"); //19:12-Thu,28 Jan'21
-const getDay = (time) => moment.unix(time).format('dddd'); // Thursday
-const getTime24Hour = (time) => moment.unix(time).format('kk'); // 19:12
-const getTime12Hour = (time) => moment.unix(time).format('LT'); // 8:30 PM
+export const getDate = (time) => moment.unix(time).format("D MMMM'YY"); //28 January'20
+export const getDateTime = (time) => moment.unix(time).format("kk-dd,D MM'YY"); //19:12-Thu,28 Jan'21
+export const getDay = (time) => moment.unix(time).format('dddd'); // Thursday
+export const getTime24Hour = (time) => moment.unix(time).format('kk'); // 19:12
+export const getTime12Hour = (time) => moment.unix(time).format('LT'); // 8:30 PM
 
 // if Today or Tomorrow, else Mon Tue format
-const getDayThisWeek = (time) => {
+export const getDayThisWeek = (time) => {
   if (moment.unix(time).isSame(Date.now(), 'day')) return 'Today';
-  if (moment.unix(time).isSame(moment().add(1, 'days'), 'day')) return 'Tommo';
+  if (moment.unix(time).isSame(moment().add(1, 'days'), 'day')) return 'Tomorrow';
   return moment.unix(time).format('dd');
 };
 
 // units based on api doc
-const openWeatherUnitsList = {
+export const openWeatherUnitsList = {
   TEMPERATURE: 'C',
   PRESSURE: 'hpa',
   HUMIDITY: '%',
@@ -40,5 +39,3 @@ const openWeatherUnitsList = {
   PRECP_PERC: '%',
   UV_INDEX: '',
 };
-
-export { getDate, getDateTime, getDay, getTime24Hour, getTime12Hour, getDayThisWeek, openWeatherUnitsList };

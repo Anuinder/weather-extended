@@ -1,4 +1,4 @@
-import IconCustom from './icons.js';
+import IconCustom from './common/icons.js';
 
 const DetailTile = (props) => (
   <div className={props.styles}>
