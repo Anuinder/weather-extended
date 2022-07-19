@@ -4,21 +4,30 @@ import { connect } from 'react-redux';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { withStyles } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { fetchWeatherData } from '../redux/actions.js';
 import { fetchPlaceSuggestionsApi } from '../utils/apiRequests.js';
 import classes from '../styles/searchbar.module.css';
 import { SearchIcon } from '../assets/icons.js';
 
-const useStyles = (theme) => ({
-  inputRoot: {
-    ['@media screen and (min-width: 1200px)']: { fontSize: '2rem' },
-    fontFamily: 'Cookie',
-    color: 'wheat',
-  },
-  clearIndicator: {
-    color: 'wheat',
+const theme = createTheme({
+  components: {
+    MuiAutocomplete: {
+      styleOverrides: {
+        inputRoot: {
+          fontSize: '1.1rem',
+          color: 'white',
+        },
+        option: {
+          color: 'white',
+          background: 'transparent',
+        },
+        noOptions: {
+          color: 'white',
+        },
+      },
+    },
   },
 });
 class SearchBar extends React.Component {
@@ -57,18 +66,24 @@ class SearchBar extends React.Component {
     return (
       <>
         <span className={classes.inputBar}>
-          <Autocomplete
-            id='combo-box-demo'
-            options={this.state.options}
-            getOptionLabel={(option) => option.city + ',' + option.state + ',' + option.country}
-            onChange={this.handleChange}
-            filterOptions={(options, state) => options}
-            renderInput={(params) => (
-              <TextField {...params} placeholder='Search for Weather here' onChange={this.handleDebouncedTextChange} />
-            )}
-            fullWidth
-            autoHighlight
-          />
+          <ThemeProvider theme={theme}>
+            <Autocomplete
+              id='combo-box-demo'
+              options={this.state.options}
+              getOptionLabel={(option) => option.city + ',' + option.state + ',' + option.country}
+              onChange={this.handleChange}
+              filterOptions={(options, state) => options}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder='Search for Weather here'
+                  onChange={this.handleDebouncedTextChange}
+                />
+              )}
+              fullWidth
+              autoHighlight
+            />
+          </ThemeProvider>
         </span>
         <span className={classes.searchButton}>
           <FontAwesomeIcon icon={SearchIcon} className={classes.search} />
@@ -78,4 +93,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(connect(null, { fetchWeatherData })(SearchBar));
+export default connect(null, { fetchWeatherData })(SearchBar);
