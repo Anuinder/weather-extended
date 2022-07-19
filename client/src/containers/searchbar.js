@@ -42,7 +42,7 @@ class SearchBar extends React.Component {
   /* value of textfield changes - populate suggestions*/
   handleTextChange = async (event) => {
     const place = event.target.value.trim();
-    console.log('handleTextChange', place);
+
     if (place === '') return;
     try {
       const options = await fetchPlaceSuggestionsApi(place);
@@ -54,7 +54,6 @@ class SearchBar extends React.Component {
 
   /* value of autocomplete changes. - action weatherrequest */
   handleChange = (event, selectedOption) => {
-    console.log('handle change selected option is' + selectedOption);
     if (selectedOption === null) {
       this.setState({ options: [] });
       return;

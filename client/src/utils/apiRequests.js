@@ -13,7 +13,6 @@ const fetchPlaceSuggestionsApi = async (place) => {
 
   try {
     const response = await axios.get(url);
-    console.log('REQUEST FOR SUGGESTION');
     const options = response.data.items.map((option) => {
       const item = {
         id: option.id,
@@ -36,7 +35,6 @@ const fetchPlaceSuggestionsApi = async (place) => {
 
 /* fetch coordinates for a place- position for id */
 const fetchPlaceCoordinates = async (placeid) => {
-  console.log('REQUEST FOR COORDINATES');
   const url = 'https://lookup.search.hereapi.com/v1/lookup?id=' + placeid + '&apiKey=' + REACT_APP_HERE_MAP_API_KEY;
   const response = await axios.get(url);
   const { lat, lng } = response.data.position;
@@ -65,7 +63,6 @@ const fetchReverseGeocode = async (position) => {
 
 /* fetch weather data for a place- weather data for position */
 const fetchWeatherDataApi = async (position) => {
-  console.log('REQUEST FOR DATA');
   const url =
     'https://api.openweathermap.org/data/2.5/onecall?lat=' +
     position.lat +
@@ -76,7 +73,6 @@ const fetchWeatherDataApi = async (position) => {
 
   const response = await axios.get(url);
 
-  console.log(response.data);
   const { lat, lon, current, hourly, daily } = response.data;
   if (daily.length > 5) daily.length = 5;
   if (hourly.length > 7) hourly.length = 7;
